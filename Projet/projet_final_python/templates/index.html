@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisation des Données CSV</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f1f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #ff69b4;
+        }
+        .btn-upload {
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn-upload:hover {
+            background-color: #ff1493;
+        }
+        .data-preview, .data-stats, .data-graph {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Upload and Visualize CSV Data</h1>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Sélectionner un fichier CSV:</label>
+                <input type="file" name="file" class="form-control-file" id="file" required>
+            </div>
+            <button type="submit" class="btn btn-upload btn-block">Téléverser</button>
+        </form>
+
+        {% if preview %}
+        <section>
+            <h2>Aperçu des Données</h2>
+            <div class="data-preview">{{ preview|safe }}</div>
+        </section>
+        {% endif %}
+
+        {% if stats %}
+        <section>
+            <h2>Statistiques Descriptives</h2>
+            <div class="data-stats">{{ stats|safe }}</div>
+        </section>
+        {% endif %}
+
+        {% if graph_html %}
+        <section>
+            <h2>Graphique Interactif</h2>
+            <div class="data-graph">{{ graph_html|safe }}</div>
+        </section>
+        {% endif %}
+    </div>
+</body>
+</html>
